@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    build: ./server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: todo-api
+  client:
+    build: ./client
+    ports:
+      - "80:80"
+    container_name: todo-client
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: todo-db
+volumes:
+  mongodb-data:
+    name: mongodb-data

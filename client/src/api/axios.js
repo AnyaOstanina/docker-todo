@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const makeUrl = (path) => {
-  const parts = ["http://localhost:3000"];
+  const parts = [""];
   if (path) {
     parts.push(path.trim().replace(/(^\/+)|(\/+$)/g, ''));
   }

@@ -1,48 +1,40 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put
-} from "@nestjs/common";
-import { TodoDTO } from "./todo.dto";
-import { todos } from "./todos-mock";
+import { Controller, Post, Body, Get, Put, Delete, Param } from '@nestjs/common';
+import { TodoService } from './todo.service';
+import { CreateTodoDTO } from './dto/create-todo.dto';
+import { Todo } from './interfaces/todo.interface';
 
-let todosData = todos;
-
-@Controller("todos")
+@Controller('todo')
 export class TodoController {
-  @Get()
-  getTodos(): TodoDTO[] {
-    return todosData;
-  }
+    constructor(private readonly todoService: TodoService) {}
 
-  @Post()
-  createTodo(@Body() createTodo: TodoDTO): TodoDTO {
-    const newTodo: TodoDTO = {
-      id: (todosData.length + 1).toString(),
-      ...createTodo
-    };
+    //add a todo
+    @Post()
+    async addTodo(@Body() createTodoDTO: CreateTodoDTO) {
+        return this.todoService.addTodo(createTodoDTO);
+    }
 
-    todosData = [...todosData, newTodo];
+    //get all todos
+    @Get()
+    async getAllTodos(): Promise<Todo[]> {
+        return this.todoService.getAllTodo();
+    }
 
-    return newTodo;
-  }
+    //get a todo
+    @Get(':id')
+    async getTodoById(@Param('id') id): Promise<Todo> {
+        return this.todoService.getTodoById(id);
+    }
 
-  @Put(":id")
-  updateTodo(@Body() updateTodo: TodoDTO, @Param("id") id): TodoDTO {
-    todosData = todosData.map(todo => (todo.id === id ? updateTodo : todo));
+    // update a todo
+    @Put(':id')
+    async updateTodo(@Param('id') id, @Body() createTodoDTO: CreateTodoDTO): Promise<Todo> {
+        return this.todoService.updateTodo(id, createTodoDTO);        
+    }
 
-    return updateTodo;
-  }
+    // delete a todo 
+    @Delete(':id')
+    async deleteTodo(@Param('id') id): Promise<Todo> {  
+        return this.todoService.deleteTodo(id);        
+    }
 
-  @Delete(":id")
-  deleteTodo(@Param("id") id): TodoDTO {
-    const todoToDelete = todosData.find(todo => todo.id === id);
-    todosData = todosData.filter(todo => todo.id !== id);
-
-    return todoToDelete;
-  }
 }
