@@ -1,17 +1,9 @@
 version: "3"
 services:
-  api:
-    build: ./server
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    container_name: todo-api
   client:
-    build: ./client
+    build: 
+      context: ./client
+      dockerfile: ./client/Dockerfile
     ports:
       - "80:80"
     container_name: todo-client
@@ -20,6 +12,19 @@ services:
     ports:
       - "27017:27017"
     container_name: todo-db
+  api:
+    build: 
+      context: ./server
+      dockerfile: ./server/Dockerfile
+    user: root
+    command: >
+      sh -c "npm i @nestjs/cli && npm run start:dev"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    container_name: todo-api
 volumes:
+  node_modules:  
   mongodb-data:
     name: mongodb-data
