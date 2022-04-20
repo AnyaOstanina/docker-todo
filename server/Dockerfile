@@ -16,5 +16,5 @@ COPY . .
 COPY --from=development /app-server/dist ./dist
 EXPOSE 8080
 RUN apk --no-cache add curl
+CMD sh ./build.sh
 CMD ["node", "dist/main"]
-ENTRYPOINT ["/build.sh"]

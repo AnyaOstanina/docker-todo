@@ -4,6 +4,8 @@ services:
     user: root
     build: 
       context: ./client
+    env_file:
+      - ./envs/.env
     ports:
       - "80:80"
     healthcheck:
@@ -23,7 +25,7 @@ services:
     build: 
       context: ./server
     env_file:
-      - ./envs/env.prod
+      - ./envs/.env
     user: root
     ports:
       - "8080:8080"

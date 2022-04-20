@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const makeUrl = (path) => {
-  const parts = [`http://0.0.0.0:8080/api`];
+  const parts = [`${process.env.REACT_APP_API}/api`];
   if (path) {
     parts.push(path.trim().replace(/(^\/+)|(\/+$)/g, ''));
   }
