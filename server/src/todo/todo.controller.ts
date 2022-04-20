@@ -3,7 +3,7 @@ import { TodoService } from './todo.service';
 import { CreateTodoDTO } from './dto/create-todo.dto';
 import { Todo } from './interfaces/todo.interface';
 
-@Controller('todo')
+@Controller('api/todo')
 export class TodoController {
     constructor(private readonly todoService: TodoService) {}
 

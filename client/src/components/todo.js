@@ -2,6 +2,7 @@ import React from "react";
 import { TodoList } from "./todo-list";
 import { TodoForm } from "./add-form";
 import { Spinner } from "./spinner";
+import "./todo-styles.css";
 import { loadTasksAsync, addTasksAsync, deleteTasksAsync, changeTasksAsync } from "../api/todo.service";
 
 export const TodoApp = () => {
@@ -36,7 +37,7 @@ export const TodoApp = () => {
     try {
       await deleteTasksAsync(id).then((items) => {
         setIsLoading(false);
-        setTodoItems(items);
+        setTodoItems(todoItems.filter((el) => el._id !== id));
       });
     } catch (e) {
       setIsLoading(false);
@@ -49,7 +50,12 @@ export const TodoApp = () => {
     try {
       await changeTasksAsync({ id: id, isDone: true }).then((items) => {
         setIsLoading(false);
-        setTodoItems(items);
+        setTodoItems(todoItems.map((el) => {
+          if (el._id === id) {
+            return {...el, isDone: true}
+          }
+           return el;
+        }));
       });
     } catch (e) {
       setIsLoading(false);

@@ -19,3 +19,8 @@
     list-style-type: none; 
     font-weight: bold;
 }
+
+
+#main {
+    padding: 40px;
+  }

@@ -1,9 +1,15 @@
-import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const TodoSchema = new mongoose.Schema({
-   
-    id: String,
-    text: {type: String, default: 'default'},
-    isDone: {type: Boolean, default: false}    
-    
-}, { timestamps: true});
+export type TodoDocument = Todo & Document;
+
+@Schema()
+export class Todo {
+  @Prop()
+  text: string;
+
+  @Prop()
+  isDone: boolean;
+}
+
+export const TodoSchema = SchemaFactory.createForClass(Todo);

@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoListItem } from "./todo-item";
-import "./todo-styles.module.css";
+import "./todo-styles.css";
 
 export const TodoList = ({ items, removeItem, markTodoDone }) => {
   return (
@@ -13,7 +13,7 @@ export const TodoList = ({ items, removeItem, markTodoDone }) => {
               key={index}
               item={item}
               index={index}
-              removeItem={() => removeItem(item.id)}
+              removeItem={() => removeItem(item._id)}
               markTodoDone={markTodoDone}
             />
           );
@@ -27,7 +27,7 @@ export const TodoList = ({ items, removeItem, markTodoDone }) => {
               key={index}
               item={item}
               index={index}
-              removeItem={() => removeItem(item.id)}
+              removeItem={() => removeItem(item._id)}
               markTodoDone={markTodoDone}
             />
           );

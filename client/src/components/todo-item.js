@@ -1,17 +1,17 @@
 import React from "react";
-import "./todo-styles.module.css";
+import "./todo-styles.css";
 
 export const TodoListItem = ({ removeItem, markTodoDone, item }) => {
   const onClickClose = () => {
-    var index = item.id;
+    var index = item._id;
     removeItem(index);
   };
   const onClickDone = () => {
-    var index = item.id;
+    var index = item._id;
     markTodoDone(index);
   };
   return (
-    <li className="list-group-item ">
+    <li className="list-group-item">
       <div className={item.done ? "done" : "undone"}>
         {item.text}
         {!item.isDone ? (

@@ -1,10 +1,10 @@
 import { axiosGet, axiosErrors, axiosPost, axiosPut, axiosDelete } from './axios';
 
 export const loadTasksAsync = () => {
-  const todos = axiosGet(`todos`);
+  const todos = axiosGet(`todo`);
   return todos()
     .then((res) => {
-      return res;
+      return res.data;
     })
     .catch((e) => {
       throw axiosErrors(e);
@@ -12,10 +12,11 @@ export const loadTasksAsync = () => {
 };
 
 export const addTasksAsync = (tsk) => {
-  const todos = axiosPost(`todos`, {tsk});
-  return todos()
+  const todos = axiosPost(`todo`);
+  return todos(tsk)
     .then((res) => {
-      return res;
+      console.log(res);
+      return res.data;
     })
     .catch((e) => {
       throw axiosErrors(e);
@@ -23,10 +24,11 @@ export const addTasksAsync = (tsk) => {
 };
 
 export const changeTasksAsync = (tsk) => {
-  const todos = axiosPut(`todos/${tsk.id}`, {tsk});
-  return todos()
+  const todos = axiosPut(`todo/${tsk.id}`);
+  return todos(tsk)
     .then((res) => {
-      return res;
+      console.log(res);
+      return res.data;
     })
     .catch((e) => {
       throw axiosErrors(e);
@@ -34,10 +36,11 @@ export const changeTasksAsync = (tsk) => {
 };
 
 export const deleteTasksAsync = (id) => {
-  const todos = axiosDelete(`todos/${id}`);
+  const todos = axiosDelete(`todo/${id}`);
   return todos()
     .then((res) => {
-      return res;
+      console.log(res);
+      return res.data;
     })
     .catch((e) => {
       throw axiosErrors(e);

@@ -3,7 +3,6 @@ services:
   client:
     build: 
       context: ./client
-      dockerfile: ./client/Dockerfile
     ports:
       - "80:80"
     container_name: todo-client
@@ -15,10 +14,7 @@ services:
   api:
     build: 
       context: ./server
-      dockerfile: ./server/Dockerfile
     user: root
-    command: >
-      sh -c "npm i @nestjs/cli && npm run start:dev"
     ports:
       - "8080:8080"
     depends_on:
