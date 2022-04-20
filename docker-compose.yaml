@@ -1,22 +1,37 @@
 version: "3"
 services:
   client:
+    user: root
     build: 
       context: ./client
     ports:
       - "80:80"
+    healthcheck:
+      test: curl --fail -s http://localhost:80/ || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     container_name: todo-client
   db:
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongodb-data:/var/lib/mysql
     container_name: todo-db
   api:
     build: 
       context: ./server
+    env_file:
+      - ./envs/env.prod
     user: root
     ports:
       - "8080:8080"
+    healthcheck:
+      test: curl --fail -s http://localhost:8080/ || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     depends_on:
       - db
     container_name: todo-api
