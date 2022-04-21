@@ -24,8 +24,6 @@ services:
   api:
     build: 
       context: ./server
-    env_file:
-      - ./envs/.env
     user: root
     ports:
       - "8080:8080"
