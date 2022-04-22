@@ -2,14 +2,18 @@ version: "3"
 services:
   client:
     user: root
+    restart: always
     build: 
       context: ./client
+      args:
+        BUILD_TIME: unspecified
+        GIT_COMMIT: unspecified
     env_file:
       - ./envs/.env
     ports:
       - "80:80"
     healthcheck:
-      test: curl --fail -s http://localhost:80/ || exit 1
+      test: curl --fail -s http://localhost:80/health || exit 1
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -24,11 +28,15 @@ services:
   api:
     build: 
       context: ./server
+      args:
+        BUILD_TIME: unspecified
+        GIT_COMMIT: unspecified
     user: root
+    restart: always
     ports:
       - "8080:8080"
     healthcheck:
-      test: curl --fail -s http://localhost:8080/ || exit 1
+      test: curl --fail -s http://localhost:8080/health || exit 1
       interval: 1m30s
       timeout: 10s
       retries: 3

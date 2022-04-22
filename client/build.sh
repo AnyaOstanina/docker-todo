@@ -26,3 +26,4 @@ echo "}" >> /usr/share/nginx/html/env-config.js
 sed -i.bak 's~<body[^>]*>~&<script src="env-config.js"></script>~' /usr/share/nginx/html/index.html
 
 exec "$@"
+BUILD_TIME=$(date +%s) && GIT_COMMIT=$(git log -1 --format=%h) && docker-compose build --build-arg GIT_COMMIT=$GIT_COMMIT --build-arg BUILD_TIME=$BUILD_TIME app && docker-compose up -d
