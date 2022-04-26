@@ -5,9 +5,9 @@ RUN npm install --only=prod
 COPY . /app-client
 RUN npm run build
 FROM nginx:1.16.0-alpine
-ARG GIT_COMMIT=unspecified
+ARG GIT_COMMIT=''
 LABEL git_commit=$GIT_COMMIT
-ARG BUILD_TIME=unspecified
+ARG BUILD_TIME=''
 LABEL build_time=$BUILD_TIME
 COPY --from=builder /app-client/build /usr/share/nginx/html
 COPY default.conf /etc/nginx/conf.d/default.conf

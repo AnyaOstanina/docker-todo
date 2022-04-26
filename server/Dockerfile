@@ -7,9 +7,9 @@ COPY . .
 RUN npm run build
 
 FROM node:12-alpine as production
-ARG GIT_COMMIT=unspecified
+ARG GIT_COMMIT=''
 LABEL git_commit=$GIT_COMMIT
-ARG BUILD_TIME=unspecified
+ARG BUILD_TIME=''
 LABEL build_time=$BUILD_TIME
 WORKDIR /app-server
 COPY package*.json ./

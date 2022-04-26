@@ -6,17 +6,14 @@ services:
     build: 
       context: ./client
       args:
-        BUILD_TIME: unspecified
-        GIT_COMMIT: unspecified
+        BUILD_TIME: ''
+        GIT_COMMIT: ''
     env_file:
       - ./envs/.env
     ports:
       - "80:80"
     healthcheck:
       test: curl --fail -s http://localhost:80/health || exit 1
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
     container_name: todo-client
   db:
     image: mongo
@@ -29,17 +26,14 @@ services:
     build: 
       context: ./server
       args:
-        BUILD_TIME: unspecified
-        GIT_COMMIT: unspecified
+        BUILD_TIME: ''
+        GIT_COMMIT: ''
     user: root
     restart: always
     ports:
       - "8080:8080"
     healthcheck:
       test: curl --fail -s http://localhost:8080/health || exit 1
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
     depends_on:
       - db
     container_name: todo-api
