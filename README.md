@@ -2,7 +2,7 @@
 
 
 ## Run
-### run sh build.sh
+### run sh build.sh or run sh buildx.sh for linux/amd64,linux/arm64
 
 ## Healthcheck
-### docker inspect --format='{{json .State.Health}}' CONTAINER_ID or visit http://localhost:8080/health for server and http://localhost:80/health for client
+### docker inspect --format='{{json .State.Health}}' CONTAINER_ID
